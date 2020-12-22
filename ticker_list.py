@@ -1,5 +1,7 @@
 """Get the list of tickers from DiviData.com"""
 
+import os
+import pickle
 import requests
 import string
 import time
@@ -13,8 +15,14 @@ class GetTickers:
 
     def __init__(self):
         """Initialize the class with the given routines"""
+        self.__pickled_file_path = os.path.join(os.getcwd(), "ticker_list.pickled")
+        if os.path.exists(self.__pickled_file_path):
+            self.__extracted_data = pickle.load(open(self.__pickled_file_path, "rb"))
+            return
         self.__html_data = self.__get_raw_content()
         self.__extracted_data = self.__get_content()
+        pickle.dump(self.__extracted_data, open(
+            "../../Library/Application Support/JetBrains/PyCharmCE2020.3/scratches/ticker_list.pickled", "wb"))
 
     def __get_raw_content(self):
         """
