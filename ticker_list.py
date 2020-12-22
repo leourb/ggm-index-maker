@@ -21,8 +21,7 @@ class GetTickers:
             return
         self.__html_data = self.__get_raw_content()
         self.__extracted_data = self.__get_content()
-        pickle.dump(self.__extracted_data, open(
-            "../../Library/Application Support/JetBrains/PyCharmCE2020.3/scratches/ticker_list.pickled", "wb"))
+        pickle.dump(self.__extracted_data, open("ticker_list.pickled", "wb"))
 
     def __get_raw_content(self):
         """
