@@ -41,8 +41,8 @@ class GetTickers:
     def __get_content(self):
         """
         Extract the content from the downloaded raw data
-        :return: a dictionary with the plain tickers
-        :rtype: dict
+        :return: a JSON with the plain tickers
+        :rtype: list
         """
 
         def get_text(tag): return tag.text
@@ -54,12 +54,12 @@ class GetTickers:
             stock_tickers = [list(map(get_text, i)) for i in dt_tags]
             stock_tickers_flatten = [ticker for sub_list in stock_tickers for ticker in sub_list]
             tickers_universe[letter] = stock_tickers_flatten
-        return tickers_universe
+        return [tickers_universe]
 
     def get_downloaded_tickers(self):
         """
         Get the tickers
         :return: a dictionary with the downloaded data
-        :rtype: dict
+        :rtype: list
         """
         return self.__extracted_data
