@@ -38,6 +38,14 @@ class GrowthAndWeights:
         """
         return self.__ticker_list
 
+    def get_growth_rates(self):
+        """
+        Get the inferred growth rates
+        :return: a dictionary with the gorwth rates
+        :rtype: dict
+        """
+        return self.__growth_rates
+
     def get_component_weights(self):
         """
         Get the component weights as a public member
