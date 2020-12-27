@@ -101,6 +101,6 @@ class PortfolioAnalytics:
             "performance_vs_benchmark": self.__calculate_performance_vs_benchmark,
             "excess_growth": self.__analyze_excess_growth,
             "growth_rates_comparison": self.__compare_growth_rates,
-            "pie_weights": self.__show_weights
+            "weights": self.__show_weights
         }
         return results
