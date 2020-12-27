@@ -21,14 +21,9 @@ class PortfolioAnalytics:
         self.growth_rates = growth_rates
         self.__back_test_class = back_test_results
         self.__back_test_results = self.__back_test_class.get_back_test_results()
-        self.__performance = self.__calculate_performance()
         self.__start_date = str(datetime.today() - timedelta(days=(back_test_years_window * 365)))
         self.__djia_performance = self.__format_benchmark_data()
-        self.__performance_vs_benchmark = self.__calculate_performance_vs_benchmark()
-        self.__excess_growth_analysis = self.__analyze_excess_growth()
-        self.__growth_rates_comparison = self.__compare_growth_rates()
-        self.__weights_pie = self.__show_weights()
-        self.analytics = self.__build_results()
+        self.results = self.__build_results()
 
     def __calculate_performance(self):
         """
@@ -82,11 +77,11 @@ class PortfolioAnalytics:
         :rtype: dict
         """
         results = {
-            "performance": self.__performance,
-            "performance_vs_benchmark": self.__performance_vs_benchmark,
-            "excess_growth": self.__excess_growth_analysis,
-            "growth_rates_comparison": self.__growth_rates_comparison,
-            "pie_weights": self.__weights_pie
+            "performance": self.__calculate_performance(),
+            "performance_vs_benchmark": self.__calculate_performance_vs_benchmark(),
+            "excess_growth": self.__analyze_excess_growth(),
+            "growth_rates_comparison": self.__compare_growth_rates(),
+            "pie_weights": self.__show_weights()
         }
         return results
 
