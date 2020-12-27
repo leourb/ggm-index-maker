@@ -4,24 +4,25 @@ import numpy as np
 
 from scipy.stats import norm
 
+from .backtest import BackTest
 
 class RiskMetrics:
     """Calculate the risk indicators for the portfolio"""
 
-    def __init__(self, backtest_data):
+    def __init__(self, back_test_data):
         """
         Initialize the class with the given parameters
-        :param pd.DataFrame backtest_data: Pandas DataFrame with the back-tested data
+        :param BackTest back_test_data: Pandas DataFrame with the back-tested data
         """
-        self.__backtested_data = backtest_data
+        self.__back_tested_data = back_test_data.get_back_test_results()
         self.__var_95 = self.__calculate_var(95)
         self.__var_99 = self.__calculate_var(99)
         self.__es_97_5 = self.__calculate_es(97.5)
         self.__hvar_95 = self.__calculate_hvar(95)
         self.__hvar_99 = self.__calculate_hvar(99)
-        self.__min = self.__backtested_data["Portfolio"].min() - 1
-        self.__min_max_range = (self.__backtested_data["Portfolio"].max() -
-                                self.__backtested_data["Portfolio"].min()) - 1
+        self.__min = self.__back_tested_data["Portfolio"].min() - 1
+        self.__min_max_range = (self.__back_tested_data["Portfolio"].max() -
+                                self.__back_tested_data["Portfolio"].min()) - 1
         self.results = self.__build_results()
 
     def __calculate_var(self, confidence):
@@ -32,7 +33,7 @@ class RiskMetrics:
         :rtype: float
         """
         z = norm.ppf(confidence/100)
-        std = self.__backtested_data["Portfolio"].std()
+        std = self.__back_tested_data["Portfolio"].std()
         var = std * z
         return var
 
@@ -43,8 +44,8 @@ class RiskMetrics:
         :return: the calculated ES value
         :rtype: float
         """
-        mu = self.__backtested_data["Portfolio"].mean() - 1
-        sigma = self.__backtested_data["Portfolio"].std()
+        mu = self.__back_tested_data["Portfolio"].mean() - 1
+        sigma = self.__back_tested_data["Portfolio"].std()
         x = confidence / 100
         u = norm.ppf(x)
         es = mu + sigma * (np.exp(-u**2/2)/((1-x) * np.sqrt(2*np.pi)))
@@ -57,7 +58,7 @@ class RiskMetrics:
         :return: the calculated HVaR value
         :rtype: float
         """
-        series = self.__backtested_data["Portfolio"] - 1
+        series = self.__back_tested_data["Portfolio"] - 1
         series.sort_values(ascending=False, inplace=True)
         index_val = round(confidence / 100 * len(series))
         return np.abs(series.iloc[index_val])
