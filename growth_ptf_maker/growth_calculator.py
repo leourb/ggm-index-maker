@@ -5,7 +5,7 @@ import pickle
 
 from ggm_calculator import InferParameters as Ip
 
-from ticker_list import GetTickers
+from .ticker_list import GetTickers
 
 
 class CalculateG:

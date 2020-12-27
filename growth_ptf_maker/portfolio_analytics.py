@@ -4,8 +4,8 @@ import pandas as pd
 
 from datetime import datetime, timedelta
 
-from backtest import BackTest
-from yahoo_data_downloader import YahooFinanceDownloader
+from .backtest import BackTest
+from .yahoo_data_downloader import YahooFinanceDownloader
 
 
 class PortfolioAnalytics:

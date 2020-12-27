@@ -5,7 +5,7 @@ from functools import reduce
 
 import pandas as pd
 
-from yahoo_data_downloader import YahooFinanceDownloader
+from .yahoo_data_downloader import YahooFinanceDownloader
 
 
 class BackTest:

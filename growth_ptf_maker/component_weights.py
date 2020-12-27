@@ -4,8 +4,8 @@ import pandas as pd
 
 from scipy.stats import norm
 
-from datashelf import DataShelf
-from growth_calculator import CalculateG
+from .datashelf import DataShelf
+from .growth_calculator import CalculateG
 
 
 class GrowthAndWeights:

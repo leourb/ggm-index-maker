@@ -2,10 +2,10 @@
 
 import pandas as pd
 
-from backtest import BackTest
-from component_weights import GrowthAndWeights
-from portfolio_analytics import PortfolioAnalytics
-from risk_metrics import RiskMetrics
+from .backtest import BackTest
+from .component_weights import GrowthAndWeights
+from .portfolio_analytics import PortfolioAnalytics
+from .risk_metrics import RiskMetrics
 
 
 class PortfolioDashboard:
