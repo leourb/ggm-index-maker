@@ -1,7 +1,5 @@
 """Component Weights and Growth calculator"""
 
-import pickle
-
 import pandas as pd
 
 from scipy.stats import norm
@@ -16,8 +14,7 @@ class GrowthAndWeights:
     def __init__(self):
         """Initialize the class with the given inputs"""
         self.__ticker_list = DataShelf().get_ticker_list()
-        # self.__growth_rates = CalculateG(self.__ticker_list).get_growth_rates()
-        self.__growth_rates = pickle.load(open("growth_rates.pickled", "rb"))
+        self.__growth_rates = CalculateG(self.__ticker_list).get_growth_rates()
         self.__component_weights = self.__calculate_component_weight()
 
     def __calculate_component_weight(self):
