@@ -20,9 +20,10 @@ class PortfolioDashboard:
         self.__back_test_results = BackTest(self.__growth_and_weights.get_ticker_list(),
                                             self.__growth_and_weights.get_component_weights(),
                                             back_test_years_window
-                                            ).get_back_test_results()
+                                            )
         self.__risk_metrics = RiskMetrics(self.__back_test_results).results
-        self.__portfolio_analytics = PortfolioAnalytics(self.__back_test_results, back_test_years_window)
+        self.__portfolio_analytics = PortfolioAnalytics(self.__growth_and_weights.get_growth_rates(),
+                                                        self.__back_test_results, back_test_years_window)
 
     def back_test_results(self):
         """
@@ -30,7 +31,7 @@ class PortfolioDashboard:
         :return: the results of the back-test ran
         :rtype: pd.DataFrame
         """
-        return self.__back_test_results
+        return self.__back_test_results.get_back_test_results()
 
     def risk_metrics(self):
         """
