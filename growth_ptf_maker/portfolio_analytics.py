@@ -25,17 +25,6 @@ class PortfolioAnalytics:
         self.__djia_performance = self.__format_benchmark_data()
         self.results = self.__build_results()
 
-    def __calculate_performance(self):
-        """
-        Calculate the performance of the portfolio
-        :return: a chart with the performance
-        :rtype: matplotlib.axes._subplots.AxesSubplot
-        """
-        return self.__back_test_results["Portfolio_Dollars"].plot(title="Portfolio Performance 1-Y Back-Test",
-                                                                  grid=True,
-                                                                  figsize=(10, 5)
-                                                                  )
-
     def __format_benchmark_data(self):
         """
         Format the DataFrame to match the same format as the Portfolio data
@@ -50,6 +39,17 @@ class PortfolioAnalytics:
         self.__djia_data.set_index("Date", inplace=True)
         return self.__djia_data
 
+    def __calculate_performance(self):
+        """
+        Calculate the performance of the portfolio
+        :return: a chart with the performance
+        :rtype: matplotlib.axes._subplots.AxesSubplot
+        """
+        return self.__back_test_results["Portfolio_Dollars"].plot(title="Portfolio Performance 1-Y Back-Test",
+                                                                  grid=True,
+                                                                  figsize=(10, 5)
+                                                                  )
+
     def __calculate_performance_vs_benchmark(self):
         """
         Calculate the performance against the benchmark (DJIA)
@@ -57,7 +57,7 @@ class PortfolioAnalytics:
         :rtype: matplotlib.axes._subplots.AxesSubplot
         """
         self.__back_test_results["Benchmark_Performance"] = self.__djia_data["Dollar_Performance"]
-        self.__back_test_results[["Portfolio_Dollars", "Benchmark_Performance"]].plot(
+        return self.__back_test_results[["Portfolio_Dollars", "Benchmark_Performance"]].plot(
             title="Portfolio Performance 1-Y Back-Test vs. Benchmark", grid=True, figsize=(10, 5))
 
     def __analyze_excess_growth(self):
@@ -69,21 +69,6 @@ class PortfolioAnalytics:
         self.__back_test_results["Excess_Return_Dollars"] = \
             self.__back_test_results["Portfolio_Dollars"] - self.__back_test_results["Benchmark_Performance"]
         return self.__back_test_results["Excess_Return_Dollars"].plot(kind="hist", grid=True)
-
-    def __build_results(self):
-        """
-        Build the results returning a dictionary with all the figures
-        :return: a dictionary with the figures
-        :rtype: dict
-        """
-        results = {
-            "performance": self.__calculate_performance(),
-            "performance_vs_benchmark": self.__calculate_performance_vs_benchmark(),
-            "excess_growth": self.__analyze_excess_growth(),
-            "growth_rates_comparison": self.__compare_growth_rates(),
-            "pie_weights": self.__show_weights()
-        }
-        return results
 
     def __compare_growth_rates(self):
         """
@@ -104,3 +89,18 @@ class PortfolioAnalytics:
         """
         weights_df = self.__back_test_class.get_weights()
         return weights_df['weights'].sort_values().plot(kind="barh", grid=True, figsize=(10, 5))
+
+    def __build_results(self):
+        """
+        Build the results returning a dictionary with all the figures
+        :return: a dictionary with the figures
+        :rtype: dict
+        """
+        results = {
+            "performance": self.__calculate_performance(),
+            "performance_vs_benchmark": self.__calculate_performance_vs_benchmark(),
+            "excess_growth": self.__analyze_excess_growth(),
+            "growth_rates_comparison": self.__compare_growth_rates(),
+            "pie_weights": self.__show_weights()
+        }
+        return results
