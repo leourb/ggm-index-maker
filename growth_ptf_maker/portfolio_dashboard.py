@@ -23,7 +23,7 @@ class PortfolioDashboard:
                                             )
         self.__risk_metrics = RiskMetrics(self.__back_test_results).results
         self.__portfolio_analytics = PortfolioAnalytics(self.__growth_and_weights.get_growth_rates(),
-                                                        self.__back_test_results, back_test_years_window)
+                                                        self.__back_test_results, back_test_years_window).results
 
     def back_test_results(self):
         """
