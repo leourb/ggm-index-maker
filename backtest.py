@@ -73,3 +73,11 @@ class BackTest:
         :rtype: pd.DataFrame
         """
         return self.__portfolio_historical_returns
+
+    def get_weights(self):
+        """
+        Return the calculated weights
+        :return: the vector with the weights
+        :rtype: pd.DataFrame
+        """
+        return self.__weights
