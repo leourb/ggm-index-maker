@@ -26,7 +26,6 @@ class CalculateG:
         else:
             self.__tickers = self.__format_ticker_list()
         self.__growth_parameters = self.__calculate_g()
-        pickle.dump(self.__growth_parameters, open("ticker_data.pickled", "wb"))
 
     def __format_ticker_list(self):
         """
