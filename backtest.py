@@ -1,7 +1,5 @@
 """Download historical data and Back-Test the created portfolio"""
 
-import pickle
-
 from datetime import datetime, timedelta
 from functools import reduce
 
@@ -23,7 +21,6 @@ class BackTest:
         self.__years = int(years)
         self.__weights = weights
         self.__historical_data = self.__download_historical_data(tickers, self.__years)
-        self.__historical_data = pickle.load(open("historical_data.pickled", "rb"))
         self.__formatted_data = self.__format_and_reshape_historical_data()
         self.__portfolio_historical_returns = self.__calculate_portfolio_returns()
 
@@ -69,7 +66,7 @@ class BackTest:
         components_return["Portfolio_Dollars"] = components_return["Portfolio"].cumprod() * 100
         return components_return
 
-    def get_backtest_results(self):
+    def get_back_test_results(self):
         """
         Get the calculated back-tested results
         :return: a Pandas DataFrame with the calculated results
