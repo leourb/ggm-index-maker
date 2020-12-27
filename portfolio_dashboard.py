@@ -12,7 +12,7 @@ from growth_calculator import CalculateG
 from risk_metrics import RiskMetrics
 
 
-class PortfolioMaker:
+class PortfolioDashboard:
     """Calculate and generates the portfolio weights for each stock"""
 
     def __init__(self, back_test_years_window=1):
