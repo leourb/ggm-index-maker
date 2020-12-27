@@ -1,25 +1,33 @@
 """Calculate the portfolio analytics"""
 
+import pandas as pd
+
 from datetime import datetime, timedelta
 
+from backtest import BackTest
 from yahoo_data_downloader import YahooFinanceDownloader
 
 
 class PortfolioAnalytics:
     """Calculate the Portfolio Analytics"""
 
-    def __init__(self, back_test_results, back_test_years_window):
+    def __init__(self, growth_rates, back_test_results, back_test_years_window):
         """
         Initialize the class with the inputs
-        :param pd.DataFrame back_test_results: class containing the back-test results
+        :param dict growth_rates: dictionary with the inferred growth rates
+        :param BackTest back_test_results: class containing the back-test results
         :param int back_test_years_window: years to use to back-test the constructed portfolio
         """
-        self.__back_test_results = back_test_results
+        self.growth_rates = growth_rates
+        self.__back_test_class = back_test_results
+        self.__back_test_results = self.__back_test_class.get_back_test_results()
         self.__performance = self.__calculate_performance()
         self.__start_date = str(datetime.today() - timedelta(days=(back_test_years_window * 365)))
         self.__djia_performance = self.__format_benchmark_data()
         self.__performance_vs_benchmark = self.__calculate_performance_vs_benchmark()
         self.__excess_growth_analysis = self.__analyze_excess_growth()
+        self.__growth_rates_comparison = self.__compare_growth_rates()
+        self.__weights_pie = self.__show_weights()
         self.analytics = self.__build_results()
 
     def __calculate_performance(self):
@@ -76,6 +84,28 @@ class PortfolioAnalytics:
         results = {
             "performance": self.__performance,
             "performance_vs_benchmark": self.__performance_vs_benchmark,
-            "excess_growth": self.__excess_growth_analysis
+            "excess_growth": self.__excess_growth_analysis,
+            "growth_rates_comparison": self.__growth_rates_comparison,
+            "pie_weights": self.__weights_pie
         }
         return results
+
+    def __compare_growth_rates(self):
+        """
+        Compares the different inferred growth rates
+        :return: a chart with the different growth rates
+        :rtype: matplotlib.axes._subplots.AxesSubplot
+        """
+        growth_rates = self.growth_rates
+        growth_df = pd.DataFrame(index=list(growth_rates.keys()), data={"g": list(growth_rates.values())})
+        growth_df.dropna(inplace=True)
+        return growth_df["g"].sort_values(ascending=False).plot(kind="bar")
+
+    def __show_weights(self):
+        """
+        Show the calculated weights for the stocks
+        :return: a pie chart with the weights for each stock
+        :rtype: matplotlib.axes._subplots.AxesSubplot
+        """
+        weights_df = self.__back_test_class.get_weights()
+        return weights_df['weights'].sort_values().plot(kind="barh", grid=True, figsize=(10, 5))
