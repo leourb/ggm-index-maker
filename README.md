@@ -136,7 +136,7 @@ pft_builder.analytics()
 
 Will return something like:
 
-```json
+```text
 {'performance': <bound method PortfolioAnalytics.__calculate_performance of <growth_ptf_maker.portfolio_analytics.PortfolioAnalytics object at 0x7fb633d06f10>>,
  'performance_vs_benchmark': <bound method PortfolioAnalytics.__calculate_performance_vs_benchmark of <growth_ptf_maker.portfolio_analytics.PortfolioAnalytics object at 0x7fb633d06f10>>,
  'excess_growth': <bound method PortfolioAnalytics.__analyze_excess_growth of <growth_ptf_maker.portfolio_analytics.PortfolioAnalytics object at 0x7fb633d06f10>>,
