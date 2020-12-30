@@ -28,10 +28,14 @@ class PortfolioDashboard:
     def back_test_results(self):
         """
         Return the back-test results
-        :return: the results of the back-test ran
-        :rtype: pd.DataFrame
+        :return: the results of the back-test
+        :rtype: dict
         """
-        return self.__back_test_results.get_back_test_results()
+        results = {
+            "weights": self.__back_test_results.get_weights(),
+            "back_test": self.__back_test_results.get_back_test_results()
+        }
+        return results
 
     def risk_metrics(self):
         """
