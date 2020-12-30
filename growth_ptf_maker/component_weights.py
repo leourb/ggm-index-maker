@@ -41,7 +41,7 @@ class GrowthAndWeights:
     def get_growth_rates(self):
         """
         Get the inferred growth rates
-        :return: a dictionary with the gorwth rates
+        :return: a dictionary with the growth rates
         :rtype: dict
         """
         return self.__growth_rates
