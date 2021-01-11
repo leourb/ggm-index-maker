@@ -8,7 +8,7 @@ class DataShelf:
 
     def __init__(self):
         """Initialize the class with the static data"""
-        self.__ticker_list = GetTickers().get_tickers()
+        self.__ticker_list = sorted(GetTickers().get_tickers())
 
     def get_ticker_list(self):
         """
