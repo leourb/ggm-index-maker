@@ -1,8 +1,6 @@
 """Stores static data"""
 
-MY_LIST = ['AAPL', 'AMGN', 'AXP', 'BA', 'CAT', 'CRM', 'CSCO', 'CVX', 'DIS', 'DOW', 'GS', 'HD', 'HON', 'IBM',
-           'INTC', 'JNJ', 'JPM', 'KO', 'MCD', 'MMM', 'MRK', 'MSFT', 'NKE', 'PG', 'TRV', 'UNH', 'V', 'VZ',
-           'WBA', 'WMT']
+from .refresh_tickers import GetTickers
 
 
 class DataShelf:
@@ -10,7 +8,7 @@ class DataShelf:
 
     def __init__(self):
         """Initialize the class with the static data"""
-        self.__ticker_list = MY_LIST
+        self.__ticker_list = GetTickers.get_tickers()
 
     def get_ticker_list(self):
         """
