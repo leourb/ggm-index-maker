@@ -1,5 +1,7 @@
 """Download historical data and Back-Test the created portfolio"""
 
+import os
+
 from datetime import datetime, timedelta
 from functools import reduce
 
@@ -23,6 +25,8 @@ class BackTest:
         self.__historical_data = self.__download_historical_data(tickers, self.__years)
         self.__formatted_data = self.__format_and_reshape_historical_data()
         self.__portfolio_historical_returns = self.__calculate_portfolio_returns()
+        if not os.path.isfile("weights.csv"):
+            self.__weights.to_csv("weights.csv")
 
     def __download_historical_data(self, tickers, years=1):
         """
@@ -81,3 +85,11 @@ class BackTest:
         :rtype: pd.DataFrame
         """
         return self.__weights
+
+    def update_weights(self):
+        """
+        Replace the weights CSV file with the current calculated weights
+        :return: a saved CSV file
+        :rtype: csv
+        """
+        return self.__weights.to_csv("weights.csv")
