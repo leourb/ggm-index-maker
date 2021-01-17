@@ -1,7 +1,5 @@
 """Generate the portfolio composition, analytics and risk metrics"""
 
-import pandas as pd
-
 from .backtest import BackTest
 from .component_weights import GrowthAndWeights
 from .portfolio_analytics import PortfolioAnalytics
