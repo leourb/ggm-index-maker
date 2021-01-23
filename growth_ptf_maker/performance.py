@@ -10,7 +10,7 @@ from .yahoo_data_downloader import YahooFinanceDownloader
 class Performance:
     """Calculate the performance of the portfolio from a given date given weights saved in dir"""
 
-    def __init__(self, start_date="2021-01-01", end_date=None):
+    def __init__(self, start_date, end_date):
         """
         Initialize the class with the given inputs
         :param str start_date: start date of the performance
