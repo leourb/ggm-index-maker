@@ -86,6 +86,21 @@ For all the components of the **Dow Jones Industrial Average** (DJIA), as of Dec
 
 `pft_builder` will then contain the results of all the operations described above.
 
+### Parameters
+
+- **back_test_years_window**: 
+  - default parameters = 1
+  - Use this parameter to extend the number of years of backtest. Please note that the script will **round** the number 
+    of years passed in input as it accepts only integers.
+    
+- **start_date**:
+  - default parameter = "2020-01-01"
+  - Use this parameter to change the start date of the performance calculated in the module `portfolio_returns()`
+    
+- **end_date**:
+  - default parameter = `None`
+  - Use this parameter to change the end date of the performance calculated in the module `portfolio_returns()`
+
 ### Modules
 
 Initially, I have only implemented three modules:
@@ -164,6 +179,13 @@ pft_builder.analytics()["performance_vs_benchmark"]()
 This will be the result:
 
 ![img.png](img.png)
+
+#### portfolio_returns()
+
+This is a module that can ben customized to check the portfolio performance from a given start date to a given end date.
+The module will read the `start_date` parameter, pull the data from Yahoo! Finance till the `end_date` (if given)
+and then base the performance to **100** from the `start_date` to build a series with the calculated daily return of the
+portfolio.
 
 # Contacts
 
