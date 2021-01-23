@@ -2,6 +2,7 @@
 
 from .backtest import BackTest
 from .component_weights import GrowthAndWeights
+from .performance import Performance
 from .portfolio_analytics import PortfolioAnalytics
 from .risk_metrics import RiskMetrics
 
@@ -9,7 +10,7 @@ from .risk_metrics import RiskMetrics
 class PortfolioDashboard:
     """Calculate and generates the portfolio weights for each stock"""
 
-    def __init__(self, back_test_years_window=1):
+    def __init__(self, back_test_years_window=1, start_date="2021-01-01", end_date=None):
         """
         Initialize the class with the given inputs
         :param int back_test_years_window: years to use to back-test the constructed portfolio
@@ -22,6 +23,7 @@ class PortfolioDashboard:
         self.__risk_metrics = RiskMetrics(self.__back_test_results).results
         self.__portfolio_analytics = PortfolioAnalytics(self.__growth_and_weights.get_growth_rates(),
                                                         self.__back_test_results, back_test_years_window).results
+        self.__portfolio_returns = Performance(start_date, end_date).portfolio_returns()
 
     def back_test_results(self):
         """
@@ -50,3 +52,11 @@ class PortfolioDashboard:
         :rtype: dict
         """
         return self.__portfolio_analytics
+
+    def portfolio_returns(self):
+        """
+        Return the portfolio returns
+        :return: the returns calculated from the given range
+        :rtype: pd.DataFrame
+        """
+        return self.__portfolio_returns
