@@ -100,6 +100,14 @@ For all the components of the **Dow Jones Industrial Average** (DJIA), as of Dec
 - **end_date**:
   - default parameter = `None`
   - Use this parameter to change the end date of the performance calculated in the module `portfolio_returns()`
+    
+#### Example
+
+```python
+from growth_ptf_maker import PortfolioDashboard
+
+pft_builder = PortfolioDashboard(start_date="2020-01-10")
+```
 
 ### Modules
 
