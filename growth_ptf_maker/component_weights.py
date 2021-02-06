@@ -1,5 +1,7 @@
 """Component Weights and Growth calculator"""
 
+import os
+
 import pandas as pd
 
 from scipy.stats import norm
@@ -16,6 +18,8 @@ class GrowthAndWeights:
         self.__ticker_list = DataShelf().get_ticker_list()
         self.__growth_rates = CalculateG(self.__ticker_list).get_growth_rates()
         self.__component_weights = self.__calculate_component_weight()
+        if not os.path.isfile("weights.csv"):
+            self.__component_weights.to_csv("weights.csv")
 
     def __calculate_component_weight(self):
         """
@@ -53,3 +57,11 @@ class GrowthAndWeights:
         :rtype: pd.DataFrame
         """
         return self.__component_weights
+
+    def update_weights(self):
+        """
+        Replace the weights CSV file with the current calculated weights
+        :return: a saved CSV file
+        :rtype: csv
+        """
+        return self.__component_weights.to_csv("weights.csv")
