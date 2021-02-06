@@ -1,5 +1,7 @@
 """Generate the portfolio composition, analytics and risk metrics"""
 
+import pandas as pd
+
 from .backtest import BackTest
 from .component_weights import GrowthAndWeights
 from .performance import Performance
@@ -16,8 +18,9 @@ class PortfolioDashboard:
         :param int back_test_years_window: years to use to back-test the constructed portfolio
         """
         self.__growth_and_weights = GrowthAndWeights()
+        self.__weights = pd.read_csv("weights.csv", index_col=0)
         self.__back_test_results = BackTest(self.__growth_and_weights.get_ticker_list(),
-                                            self.__growth_and_weights.get_component_weights(),
+                                            self.__weights,
                                             back_test_years_window
                                             )
         self.__risk_metrics = RiskMetrics(self.__back_test_results).results
@@ -60,3 +63,11 @@ class PortfolioDashboard:
         :rtype: pd.DataFrame
         """
         return self.__portfolio_returns
+
+    def update_weights(self):
+        """
+        Replace the weights CSV file with the current calculated weights
+        :return: a saved CSV file
+        :rtype: csv
+        """
+        return self.__growth_and_weights.update_weights()
