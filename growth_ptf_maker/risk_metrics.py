@@ -6,6 +6,7 @@ from scipy.stats import norm
 
 from .backtest import BackTest
 
+
 class RiskMetrics:
     """Calculate the risk indicators for the portfolio"""
 
